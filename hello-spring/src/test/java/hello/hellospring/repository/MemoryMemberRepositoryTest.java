@@ -13,6 +13,9 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 
 public class MemoryMemberRepositoryTest {
+    // command+shift+t
+
+
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
     // 메서드 실행 될 때마다 실행 -> 테스트 하고 공용저장소 삭제! 이후에 의존성 없애기 위해성
