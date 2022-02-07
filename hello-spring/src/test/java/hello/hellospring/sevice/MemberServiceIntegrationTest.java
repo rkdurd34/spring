@@ -1,4 +1,6 @@
+
 package hello.hellospring.sevice;
+
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
@@ -8,9 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -24,9 +28,12 @@ class MemberServiceIntegrationTest {
 
     // @beforeEach, @afterEach 이거를 할필요가 없음 bootTest를 쓰면 ! -> @Transactional 사용하면 rollback 해버림
     // 통합테스트보다 단위테스트가 좋음 (스프링 컨테이너를 사용하지않은!)
-    @Test
+
+
+//    @Commit -> 이거 넣으면 rollback 안하고 db에 저장
     // 한글로도 많이 적
-    void 회원가() {
+    @Test
+    public void 회원가입() throws Exception{
         //given 어떤 상황에서
         Member member = new Member();
         member.setName("hello");
@@ -35,12 +42,12 @@ class MemberServiceIntegrationTest {
         Long saveId = memberService.join(member);
 
         //then 이게 나와야함
-        Member findMember = memberService.findOne(saveId).get();
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        Member findMember = memberRepository.findById(saveId).get();
+        assertEquals(member.getName(), findMember.getName());
     }
 
     @Test
-    void 중복회원예외() {
+    public void 중복회원예외() throws Exception{
         Member member1 = new Member();
         member1.setName("spring");
 

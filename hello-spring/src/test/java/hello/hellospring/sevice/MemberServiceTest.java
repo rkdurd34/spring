@@ -16,7 +16,7 @@ class MemberServiceTest {
     MemberService memberService;
     MemoryMemberRepository memberRepository;
 
-//  dependency injection 기존에는 memberrepository가 각각 생성되고 static 변수를 통해서 했지만 이렇게 하면 같은 객체 공유
+//  dependency injection 기존에는 memberrepository가 각각 생성되고 static 변수를 통해서 했지만 이렇게 하면 스프링 컨테이너 위의 같은 객체 공유
     @BeforeEach
     public void beforeEach(){
         memberRepository = new MemoryMemberRepository();

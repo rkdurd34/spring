@@ -1,12 +1,12 @@
 package hello.hellospring;
 
-import hello.hellospring.repository.JdbcMemberRepository;
-import hello.hellospring.repository.JdbcTemplateMemberRepository;
-import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.*;
+
 import hello.hellospring.sevice.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 
@@ -16,10 +16,18 @@ import javax.sql.DataSource;
 // 어쩄든 autowired는 스프링 컨테이너에 올라온 스프링 빈들만 사용 가능~
 @Configuration
 public class SpringConfig {
-    private DataSource dataSource;
+    //    private DataSource dataSource;
+//
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+    private final DataSource dataSource;
+    private final EntityManager em;
 
-    public SpringConfig(DataSource dataSource) {
+
+    public SpringConfig(DataSource dataSource, EntityManager em) {
         this.dataSource = dataSource;
+        this.em = em;
     }
 
 
@@ -31,8 +39,8 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
-
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
 
         // 객체지향설계의 장점을 보여줌(다형성) -> assembly code(조립하느코드) 이것만 바꾸면 다른 구현체를 끼워넣기만 하면 사용가능
         // 개방 폐쇄원칙(OCP, open-closed principle) 확장에느 ㄴ열려있고 수정/변경에는 닫혀있다.
