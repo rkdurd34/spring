@@ -4,6 +4,7 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.*;
 
 import hello.hellospring.sevice.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,7 @@ public class SpringConfig {
 
     private final MemberRepository memberRepository;
 
+    @Autowired // 생성자 하나인경우 생략 가능한것 잊지 않기
     public SpringConfig(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
