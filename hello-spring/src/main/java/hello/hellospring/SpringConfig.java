@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.repository.*;
 
 import hello.hellospring.sevice.MemberService;
@@ -16,34 +17,21 @@ import javax.sql.DataSource;
 // 어쩄든 autowired는 스프링 컨테이너에 올라온 스프링 빈들만 사용 가능~
 @Configuration
 public class SpringConfig {
-    //    private DataSource dataSource;
-//
-//    public SpringConfig(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
-    private final DataSource dataSource;
-    private final EntityManager em;
 
+    private final MemberRepository memberRepository;
 
-    public SpringConfig(DataSource dataSource, EntityManager em) {
-        this.dataSource = dataSource;
-        this.em = em;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
-    @Bean
-    public MemberRepository memberRepository() {
-//        return new MemoryMemberRepository();
-//        return new JdbcMemberRepository(dataSource);
-//        return new JdbcTemplateMemberRepository(dataSource);
-        return new JpaMemberRepository(em);
 
         // 객체지향설계의 장점을 보여줌(다형성) -> assembly code(조립하느코드) 이것만 바꾸면 다른 구현체를 끼워넣기만 하면 사용가능
         // 개방 폐쇄원칙(OCP, open-closed principle) 확장에느 ㄴ열려있고 수정/변경에는 닫혀있다.
         // interface 에서 구현체를 바꾸면서 기존 코드는 건들지 않으면서 기능 확장/추가가 가능하다는것이 객체지향의 꽃
-    }
+
 }
