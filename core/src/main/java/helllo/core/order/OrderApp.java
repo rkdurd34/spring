@@ -1,5 +1,6 @@
 package helllo.core.order;
 
+import helllo.core.AppConfig;
 import helllo.core.member.Grade;
 import helllo.core.member.Member;
 import helllo.core.member.MemberService;
@@ -7,8 +8,9 @@ import helllo.core.member.MemberServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
