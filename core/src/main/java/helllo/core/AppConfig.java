@@ -26,6 +26,8 @@ public class AppConfig {
     //이렇게 분리하게 되면 discountPolicy 변경시 한곳만 변경하여 다른 곳에 자동으로 주입 할    있다.
     // 역할(선언)과 구현(리턴) 클래스가 구분되어 한눈에 보임
     @Bean
+    // @Bean(name="새로운 빈ㅇ 이름") 이런식으로 빈 이름을 따로 설정 해줄 수 있지만 관례상 그냥 사용!
+    // 컨테이너 내부에서 스프링 빈 의존관계를 모두 설정 -> 동적 의존 관계를 확정!
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
