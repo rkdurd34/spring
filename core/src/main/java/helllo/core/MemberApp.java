@@ -23,7 +23,6 @@ public class MemberApp {
         memberService.join(member);
 
         Member findMember = memberService.findMember(1L);
-        // soutv 하면 위의 변수들을 자동으로 가져올 수 있음!!
         System.out.println("new member = " + member.getName());
         System.out.println("find Member = " + findMember.getName());
 
