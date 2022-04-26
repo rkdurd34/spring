@@ -1,5 +1,9 @@
 package helllo.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
     // 추상화에만 의존해야하는데 구현체에도 의존중  -> DIP 위반...
 
@@ -7,7 +11,8 @@ public class MemberServiceImpl implements MemberService{
     // 배우는 자기의 대사만 읽고 외우면 되고 누구와 연기를 하게 될지는 공연기획자(appconfig)가 설정해주는거임
     // 생성자만 만들어줬으므로 누가 들어올지 전혀 모름...!
     private final MemberRepository memberRepository;
-
+    // 어디서 구현체를 가져올지를 설정
+    @Autowired // ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

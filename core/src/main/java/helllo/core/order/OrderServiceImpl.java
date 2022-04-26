@@ -3,7 +3,10 @@ package helllo.core.order;
 import helllo.core.discount.DiscountPolicy;
 import helllo.core.member.Member;
 import helllo.core.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
 //    private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -17,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
 
     // 생성자를 통해서 필요한 인터페이스들을 호출하지만 "어떤 구현 객체"들이 주입될지 전혀 모름!!!!!!
+    @Autowired
     public OrderServiceImpl(DiscountPolicy discountPolicy, MemberRepository memberRepository) {
         this.discountPolicy = discountPolicy;
         this.memberRepository = memberRepository;
