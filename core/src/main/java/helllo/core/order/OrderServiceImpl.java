@@ -16,18 +16,41 @@ public class OrderServiceImpl implements OrderService {
     // FixdiscountPolicy를 했는데 -> RateDiscountPolicy로 직접 바꿔주어야댐
     // 추상에만 의존해야댐!!!!!!!!!
     // 클라이언트(OrderServiceImpl)에 영향을 준다..
-    private final DiscountPolicy discountPolicy;
-    private final MemberRepository memberRepository;
+//    private final DiscountPolicy discountPolicy;
+//    private final MemberRepository memberRepository;
+//
+//
+//    // 생성자를 통해서 필요한 인터페이스들을 호출하지만 "어떤 구현 객체"들이 주입될지 전혀 모름!!!!!!
+//    @Autowired
+//    public OrderServiceImpl(DiscountPolicy discountPolicy, MemberRepository memberRepository) {
+//        this.discountPolicy = discountPolicy;
+//        this.memberRepository = memberRepository;
+//    }
 
-    // 생성자를 통해서 필요한 인터페이스들을 호출하지만 "어떤 구현 객체"들이 주입될지 전혀 모름!!!!!!
+
+    // final은 항상 할당이 되어야함 -> 바뀌면 안되기떄문
+    // 이 상태로는 당연히 할당을 안했기 떄문....
+    // OrderserviceImpl에 DiscountPolicy "구현체"를 대신 생성하고 주입해주어야함@!@!@! <- 이 부분이 결국엔 핵심-
+
+
+    // 세터를 통한 필드 주입 -> 주로 변경,선택 하는 관계 일때 사용
+    private DiscountPolicy discountPolicy;
+    private MemberRepository memberRepository;
+
+    @Autowired
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
+    @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
     @Autowired
     public OrderServiceImpl(DiscountPolicy discountPolicy, MemberRepository memberRepository) {
         this.discountPolicy = discountPolicy;
         this.memberRepository = memberRepository;
     }
-    // final은 항상 할당이 되어야함 -> 바뀌면 안되기떄문
-    // 이 상태로는 당연히 할당을 안했기 떄문....
-    // OrderserviceImpl에 DiscountPolicy "구현체"를 대신 생성하고 주입해주어야함@!@!@! <- 이 부분이 결국엔 핵심-
+
 
 
     @Override
